@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefonlar</title>
+    <!-- Meta Tags -->
+    <!-- Here will be... -->
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <ul class="header__cont">
+            <li class="header__cont--logo" id="logo" title="telefonlar.com">
+                <a href="index.html">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="big">
+                    <img src="{% static 'images/logo2.png' %}" alt="Logo" class="small">
+                </a>
+            </li>
+            <ul class="header__cont--menu">
+                <li class="header__cont--search" id="search">
+                    <!-- Seach Bar -->
+                    <i class="fa-solid fa-search"></i>
+                    <input type="search" placeholder="Qidiruv" id="searchBar">
+                    <!-- /Search Bar -->
+                </li>
+                <li class="header__cont--btn-box">
+                    <button class="header__cont--btn btn" id="offCanvasBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </li>
+            </ul>
+        </ul>
+    </header>
+    <!-- /Header -->
+
+    <!-- Off-canvas -->
+    <div class="off-canvas close-passive" id="offCanvas">
+        <!-- Title -->
+        <div class="off-canvas__title">
+            <h2>Sahifalarimiz</h2>
+            <button class="off-canvas__close btn" id="offCanvasClose">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <!-- /Title -->
+        <!-- About Page Link -->
+        <div class="off-canvas__social">
+            <a href="{% url 'index' %}">
+                <i class="fa-solid fa-house"></i>
+                Bosh sahifa
+            </a>
+            <a href="{% url 'about' %}">
+                <i class="fa-solid fa-circle-question"></i>
+                Biz haqimizda
+            </a>
+            <a href="{% url 'contact' %}">
+                <i class="fa-solid fa-comments"></i>
+                Bog'lanish
+            </a>
+        </div>
+        <!-- About Page Link -->
+        <!-- Contact Links -->
+        <p class="off-canvas__info">
+            Aloqa markazimiz orqali bizga bog'laning:
+        </p>
+        <div class="off-canvas__social">
+            <a href="mailto:company@gmail.com" target="_blank">
+                <i class="fa fa-envelope"></i>
+                company@gmail.com
+            </a>
+            <a href="tel:+998971234567">
+                <i class="fa fa-phone"></i>
+                +998 (97) 123-45-67
+            </a>
+            <a href="tel:+998971234567">
+                <i class="fa fa-phone"></i>
+                +998 (97) 123-45-67
+            </a>
+        </div>
+        <p class="off-canvas__info">
+            <i class="fa-solid fa-circle-info"></i>
+            Qo'ng'iroq qilish uchun raqam ustiga bosing.
+        </p>
+        <!-- /Contact Links -->
+        <!-- Social Links -->
+        <div class="off-canvas__social">
+            <a href="https://instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i>
+                Instagram
+            </a>
+            <a href="https://facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i>
+                Facebook
+            </a>
+            <a href="https://telegram.me" target="_blank">
+                <i class="fab fa-telegram"></i>
+                Telegram
+            </a>
+            <a href="https://whatsapp.com" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
+        </div>
+        <p class="off-canvas__info">
+            Ijtimoiy tarmoqlar orqali bizni kuzatib boring.
+        </p>
+        <!-- /Social Links -->
+    </div>
+    <!-- /Off-canvas -->
+
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Page Title -->
+        <div class="main-section__title">
+            <h2>
+                <i class="fa-solid fa-comments"></i>
+                Bog'lanish
+            </h2>
+        </div>
+        <!-- /Page Title -->
+        <!-- Form -->
+        <form method="POST" action="" class="form" >
+            {% csrf_token %}
+            {{ form.as_p }}
+{#            <div class="form__info">#}
+{#                <input type="text" name="fullname" id="fullname" placeholder="To'liq ismingiz">#}
+{#                <input type="email" name="email" id="email" placeholder="E-mail">#}
+{#            </div>#}
+{#            <div class="form__info">#}
+{#                <textarea name="message" id="message" placeholder="Xabaringiz mazmuni" class="textarea"></textarea>#}
+{#            </div>#}
+{#            <div class="form__info btns">#}
+{#                <button class="btn" type="reset">#}
+{#                    <i class="fa-solid fa-trash"></i>#}
+{#                    O'chirish#}
+{#                </button>#}
+{#                <button class="btn" type="submit">#}
+{#                    <i class="fa-solid fa-plane"></i>#}
+{#                    Yuborish#}
+{#                </button>#}
+{#            </div>#}
+            <input type="submit">
+        </form>
+        <!-- /Form -->
+        <!-- Section Social -->
+        <section class="social">
+            <!-- Contact Links -->
+            <div class="off-canvas__social">
+                <a href="mailto:company@gmail.com" target="_blank">
+                    <i class="fa fa-envelope"></i>
+                    company@gmail.com
+                </a>
+                <a href="tel:+998971234567">
+                    <i class="fa fa-phone"></i>
+                    +998 (97) 123-45-67
+                </a>
+                <a href="tel:+998971234567">
+                    <i class="fa fa-phone"></i>
+                    +998 (97) 123-45-67
+                </a>
+            </div>
+            <p class="off-canvas__info">
+                <i class="fa-solid fa-circle-info"></i>
+                Qo'ng'iroq qilish uchun raqam ustiga bosing.
+            </p>
+            <!-- Social Links -->
+            <div class="off-canvas__social">
+                <a href="https://instagram.com" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </a>
+                <a href="https://facebook.com" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                    Facebook
+                </a>
+                <a href="https://telegram.me" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                    Telegram
+                </a>
+                <a href="https://whatsapp.com" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+            </div>
+        </section>
+        <!-- /Section Social -->
+    </section>
+    <!-- Main Section -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__info">
+            <h3>Telefonlar | 2025</h3>
+        </div>
+        <div class="footer__social">
+            <a href="https://instagram.com" target="_blank" class="btn">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com" target="_blank" class="btn">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://telegram.me" target="_blank" class="btn">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://whatsapp.com" target="_blank" class="btn">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </footer>
+    <!-- /Footer -->
+
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+
+    {% for prod in products %}
+            <div class="card discount">
+                {% if prod.Chegirma_narxi_bilan.as_integer_ratio %}
+                <div class="card__discount-mark">Chegirma</div>
+                {% endif %}
+                <div class="card__img">
+                    <img src="{% static 'images/img1.png' %}" alt="">
+                </div>
+                <div class="card__info">
+                    <h4>{{ prod.Category }}</h4>
+                    <h2>{{ prod.Model}}</h2>
+                    {% if prod.Chegirma_narxi_bilan.as_integer_ratio %}
+                        <h3>{{ prod.Narxi }} so'm</h3>
+                        <h3>Oyiga: {{ prod.Chegirma_narxi_bilan }} so'm</h3>
+                    {% else %}
+                        <h3></h3>
+                        <h3>Oyiga: {{ prod.Narxi }} so'm</h3>
+                    {% endif %}
+                    <a href="{% url 'product' prod.id %}" class="btn">Xarakteristika</a>
+                </div>
+            </div>
+    {% endfor %}
+{% endblock %}

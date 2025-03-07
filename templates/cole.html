@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefonlar</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+          integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <ul class="header__cont">
+            <li class="header__cont--logo" id="logo" title="telefonlar.com">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="big">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="small">
+                </a>
+            </li>
+            <ul class="header__cont--menu">
+                <li class="header__cont--search" id="search">
+                    <!-- Search Bar -->
+                    <i class="fa-solid fa-search"></i>
+                    <input type="search" placeholder="Qidiruv" id="searchBar">
+                    <!-- /Search Bar -->
+                </li>
+                <li class="header__cont--btn-box">
+                    <button class="header__cont--btn btn" id="offCanvasBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </li>
+            </ul>
+        </ul>
+    </header>
+    <!-- /Header -->
+
+    <!-- Off-canvas -->
+    <div class="off-canvas" id="offCanvas">
+        <!-- Title -->
+        <div class="off-canvas__title">
+            <h2>Sahifalarimiz</h2>
+            <button class="off-canvas__close btn" id="offCanvasClose">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <!-- /Title -->
+        <!-- About Page Link -->
+        <div class="off-canvas__social">
+            <a href="{% url 'index' %}">
+                <i class="fa-solid fa-house"></i>
+                Bosh sahifa
+            </a>
+            <a href="{% url 'about' %}">
+                <i class="fa-solid fa-circle-question"></i>
+                Biz haqimizda
+            </a>
+            <a href="{% url 'contact' %}">
+                <i class="fa-solid fa-comments"></i>
+                Bog'lanish
+            </a>
+        </div>
+        <!-- /About Page Link -->
+        <!-- Contact Links -->
+        <p class="off-canvas__info">
+            Aloqa markazimiz orqali bizga bog'laning:
+        </p>
+        <div class="off-canvas__social">
+            <a href="mailto:company@gmail.com" target="_blank">
+                <i class="fa fa-envelope"></i>
+                company@gmail.com
+            </a>
+            <a href="tel:+998971234567">
+                <i class="fa fa-phone"></i>
+                +998 (97) 123-45-67
+            </a>
+            <a href="tel:+998971234567">
+                <i class="fa fa-phone"></i>
+                +998 (97) 123-45-67
+            </a>
+        </div>
+        <p class="off-canvas__info">
+            <i class="fa-solid fa-circle-info"></i>
+            Qo'ng'iroq qilish uchun raqam ustiga bosing.
+        </p>
+        <!-- /Contact Links -->
+        <!-- Social Links -->
+        <div class="off-canvas__social">
+            <a href="https://instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i>
+                Instagram
+            </a>
+            <a href="https://facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i>
+                Facebook
+            </a>
+            <a href="https://telegram.me" target="_blank">
+                <i class="fab fa-telegram"></i>
+                Telegram
+            </a>
+            <a href="https://whatsapp.com" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
+        </div>
+        <p class="off-canvas__info">
+            Ijtimoiy tarmoqlar orqali bizni kuzatib boring.
+        </p>
+        <!-- /Social Links -->
+    </div>
+    <!-- /Off-canvas -->
+
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Page Title -->
+        <div class="main-section__title">
+            <h2>
+                <i class="fa-solid fa-mobile-screen"></i>
+                Mahsulot
+            </h2>
+        </div>
+        <!-- Product -->
+        <div class="main-section__product">
+            <h2 class="main-section__product--title">{{ productobj.Category }} {{ productobj.Model }}</h2>
+            <!-- Product Image -->
+            <div class="main-section__product--cont">
+                <div class="pictures">
+                    <div class="thumbs">
+                        {% if product.General_image %}
+                            <img src="{{ product.image.url }}" alt="Mahsulot rasmi">
+                        {% else %}
+                            <img src="/media/default.jpg" alt="Standart rasm">
+                        {% endif %}
+                        <img src="{{ product.image1.url }}" alt="Product Image 1" onclick="changePhoto(this)">
+                        <img src="{{ product.image2.url }}" alt="Product Image 2" onclick="changePhoto(this)">
+                    </div>
+                    <div class="img">
+                        <img src="{{ product.image.url }}" alt="Product Image" id="expandedImg">
+                    </div>
+                </div>
+                <div class="info">
+                    <!-- Agar chegirma bo'lsa, chegirma belgisi -->
+                    {% if product.Chegirma_narxi_bilan.as_integer_ratio %}
+                        <p>
+                            <span class="discount">Chegirma</span>
+                        </p>
+                    {% endif %}
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Joylashuv:
+                        <span>{{ product.Joylashuv }}</span>
+                    </p>
+                    <p>
+                        Yetkazib berish:
+                        <span>{{ product.Yetkazib_berish }} so'm</span>
+                    </p>
+                    <p>
+                        Oldindan to'lov:
+                        <span>{{ product.Chegirma_narxi_bilan }}</span>
+                    </p>
+                    <p>
+                        Bo'lib to'lash to'lov:
+                        <span>{{ product.oyma_oy_tulov }}</span>
+                    </p>
+                    <p>
+                        Kerakli hujjatlar:
+                        <span>{{ product.Kerakli_hujjatlar }}</span>
+                    </p>
+                    <p class="book">
+                        <a href="tel:{{ product.Raqam1 }}" class="btn">
+                            <i class="fa-solid fa-phone"></i>
+                            {{ product.Raqam1 }}
+                        </a>
+                        <a href="tel:{{ product.Raqam2 }}" class="btn">
+                            <i class="fa-solid fa-phone"></i>
+                            {{ product.Raqam2 }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- Agar qo'shimcha maydonlar mavjud bo'lsa, ularni ham chiqarish mumkin -->
+            {% for prod in product.field %}
+                <h1>{{ prod }}</h1>
+            {% endfor %}
+            <!-- Product Info (Qo'shimcha xususiyatlar jadvali) -->
+            <div class="main-section__product--info">
+                <h3>Xususiyatlar</h3>
+                <table class="table">
+                    <tr>
+                        <td>Kafolat</td>
+                        <td>{{ product.Kafolat }}</td>
+                    </tr>
+                    <tr>
+                        <td>OS versiyasi ishga tushirilganda</td>
+                        <td>{{ product.OS_versiyasi_ishga_tushirilganda }}</td>
+                    </tr>
+                    <tr>
+                        <td>SIM kartalar soni</td>
+                        <td>{{ product.SIM_kartalar_soni }}</td>
+                    </tr>
+                    <tr>
+                        <td>SIM karta turi</td>
+                        <td>{{ product.SIM_karta_turi }}</td>
+                    </tr>
+                    <tr>
+                        <td>Og'irligi</td>
+                        <td>{{ product.Ogirligi }}</td>
+                    </tr>
+                    <tr>
+                        <td>O'lchamlari (WxHxD)</td>
+                        <td>{{ product.ulchamlari_WxHxD }}</td>
+                    </tr>
+                    <tr>
+                        <td>Rang</td>
+                        <td>{{ product.rang }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Rasm hajmi</td>
+                        <td>{{ product.rasm_hajmi }}</td>
+                    </tr>
+                    <tr>
+                        <td>Aspekt nisbati</td>
+                        <td>{{ product.Aspekt_nisbati }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>tirnalishga chidamli shisha</td>
+                        <td>{{ product.tirnalishga_chidamli_shisha }}</td>
+                    </tr>
+                    <tr>
+                        <td>Asosiy (orqa) kameralar soni</td>
+                        <td>{{ product.Asosiy_kameralar_soni }}</td>
+                    </tr>
+                    <tr>
+                        <td>Asosiy (orqa) kameralarning o'lchamlari</td>
+                        <td>{{ product.Asosiy_kameralarning_ulchamlari }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Old kamera</td>
+                        <td>{{ product.Old_kamera }}</td>
+                    </tr>
+                    <tr>
+                        <td>Audio</td>
+                        <td>{{ product.Audio }}</td>
+                    </tr>
+                    <tr>
+                        <td>Standart</td>
+                        <td>{{ product.Standart }}</td>
+                    </tr>
+                    <tr>
+                        <td>Interfeyslar</td>
+                        <td>{{ product.Interfeyslar }}</td>
+                    </tr>
+                    <tr>
+                        <td>Geopozitsiyalash</td>
+                        <td>{{ product.Geopozitsiyalash }}</td>
+                    </tr>
+                    <tr>
+                        <td>Markaziy protsessor</td>
+                        <td>{{ product.Markaziy_protsessor }}</td>
+                    </tr>
+                    <tr>
+                        <td>Protsessor yadrolari soni</td>
+                        <td>{{ product.Protsessor_yadrolari_soni }}</td>
+                    </tr>
+                    <tr>
+                        <td>video protsessor</td>
+                        <td>{{ product.video_protsessor }}</td>
+                    </tr>
+                    <tr>
+                        <td>O'rnatilgan xotira</td>
+                        <td>{{ product.Urnatilgan_xotira }}</td>
+                    </tr>
+                    <tr>
+                        <td>RAM</td>
+                        <td>{{ product.RAM }}</td>
+                    </tr>
+                    <tr>
+                        <td>Batareya</td>
+                        <td>{{ product.Batareya }}</td>
+                    </tr>
+                    <tr>
+                        <td>Zaryadlovchi ulagichi turi</td>
+                        <td>{{ product.Zaryadlovchi_ulagichi_turi }}</td>
+                    </tr>
+                    <tr>
+                        <td>Batareya quvvati</td>
+                        <td>{{ product.Batareya_quvvati }}</td>
+                    </tr>
+
+
+                </table>
+    </div>
+
+            </div>
+            <!-- /Product Info -->
+        </div>
+    </section>
+    <!-- /Main Section -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__info">
+            <h3>Telefonlar | 2025</h3>
+        </div>
+        <div class="footer__social">
+            <a href="https://instagram.com" target="_blank" class="btn">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com" target="_blank" class="btn">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://telegram.me" target="_blank" class="btn">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://whatsapp.com" target="_blank" class="btn">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </footer>
+    <!-- /Footer -->
+
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/product.js' %}"></script>
+</body>
+</html>
+
+
+
+   index.html
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefonlar</title>
+    <!-- Meta Tags -->
+    <!-- Here will be... -->
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <ul class="header__cont">
+            <li class="header__cont--logo" id="logo" title="telefonlar.com">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="big">
+                    <img src="{% static 'images/logo2.png' %}" alt="Logo" class="small">
+                </a>
+            </li>
+            <ul class="header__cont--menu">
+                <li class="header__cont--search" id="search">
+                    <form action="{% url 'search' %}" method="post">
+                      {% csrf_token %}
+                    <i class="fa-solid fa-search"></i>
+                    <input type="search" placeholder="Qidiruv" id="searchBar">
+                    </form>
+                </li>
+                <li class="header__cont--btn-box">
+                    <button class="header__cont--btn btn" id="offCanvasBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </li>
+            </ul>
+        </ul>
+    </header>
+    <!-- /Header -->
+
+    <!-- Off-canvas -->
+    <div class="off-canvas" id="offCanvas">
+        <!-- Title -->
+        <div class="off-canvas__title">
+            <h2>Sahifalarimiz</h2>
+            <button class="off-canvas__close btn" id="offCanvasClose">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <!-- /Title -->
+        <!-- About Page Link -->
+        <div class="off-canvas__social">
+            <a href="{% url 'index'%}">
+                <i class="fa-solid fa-house"></i>
+                Bosh sahifa
+            </a>
+            <a href="{% url 'about'%}">
+                <i class="fa-solid fa-circle-question"></i>
+                Biz haqimizda
+            </a>
+            <a href="{% url 'contact'%}">
+                <i class="fa-solid fa-comments"></i>
+                Bog'lanish
+            </a>
+        </div>
+        <!-- About Page Link -->
+        <!-- Contact Links -->
+        <p class="off-canvas__info">
+            Aloqa markazimiz orqali bizga bog'laning:
+        </p>
+        <div class="off-canvas__social">
+            <a href="mailto:company@gmail.com" target="_blank">
+                <i class="fa fa-envelope"></i>
+                company@gmail.com
+            </a>
+            <a href="tel:+998971234567">
+                <i class="fa fa-phone"></i>
+                +998 (97) 123-45-67
+            </a>
+            <a href="tel:+998971234567">
+                <i class="fa fa-phone"></i>
+                +998 (97) 123-45-67
+            </a>
+        </div>
+        <p class="off-canvas__info">
+            <i class="fa-solid fa-circle-info"></i>
+            Qo'ng'iroq qilish uchun raqam ustiga bosing.
+        </p>
+        <!-- /Contact Links -->
+        <!-- Social Links -->
+        <div class="off-canvas__social">
+            <a href="https://instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i>
+                Instagram
+            </a>
+            <a href="https://facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i>
+                Facebook
+            </a>
+            <a href="https://telegram.me" target="_blank">
+                <i class="fab fa-telegram"></i>
+                Telegram
+            </a>
+            <a href="https://whatsapp.com" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
+        </div>
+        <p class="off-canvas__info">
+            Ijtimoiy tarmoqlar orqali bizni kuzatib boring.
+        </p>
+        <!-- /Social Links -->
+    </div>
+    <!-- /Off-canvas -->
+{% block content %}
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Page Title -->
+        <div class="main-section__title">
+            <h2>
+                <i class="fa-solid fa-home"></i>
+                Bosh sahifa
+            </h2>
+        </div>
+        <!-- /Page Title -->
+        <div class="main-section__container">
+            <!-- Product Card Discount -->
+          {% for prod in products %}
+            <div class="card discount">
+                {% if prod.Chegirma_narxi_bilan.as_integer_ratio %}
+                <div class="card__discount-mark">Chegirma</div>
+                {% endif %}
+                <div class="card__img">
+                    {% if product.General_image %}
+                        <img src="{{ prod.General_image.url }}" alt="Mahsulot rasmi">
+                    {% else %}
+                        <img src="/media/default.jpg" alt="Standart rasm">
+                    {% endif %}
+                </div>
+                <div class="card__info">
+                    <h4>{{ prod.Category }}</h4>
+                    <h2>{{ prod.Model}}</h2>
+                    <h3>Narxi: {{ prod.Narxi }} so'm</h3>
+
+
+                    <a href="{% url 'product' prod.id %}" class="btn">Xarakteristika</a>
+                </div>
+            </div>
+          {% endfor %}
+            <!-- /Product Card Discount-->
+        </div>
+    </section>
+    <!-- Main Section -->
+{% endblock content %}
+    <!-- Pagination -->
+    <div class="pagination">
+        <ul>
+            <li class="pagination__item">
+                <a href="#" class="btn">
+                    <i class="fa-solid fa-angle-left"></i>
+                </a>
+            </li>
+            <li class="pagination__item">
+                <a href="#" class="btn">1</a>
+            </li>
+            <li class="pagination__item">
+                <a href="#" class="btn active">2</a>
+            </li>
+            <li class="pagination__item">
+                <span class="btn dots">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </span>
+            </li>
+            <li class="pagination__item">
+                <a href="#" class="btn">7</a>
+            </li>
+            <li class="pagination__item">
+                <a href="#" class="btn">
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- /Pagination -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__info">
+            <h3>Telefonlar | 2025</h3>
+        </div>
+        <div class="footer__social">
+            <a href="https://instagram.com" target="_blank" class="btn">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com" target="_blank" class="btn">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://telegram.me" target="_blank" class="btn">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://whatsapp.com" target="_blank" class="btn">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </footer>
+    <!-- /Footer -->
+
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js'%}"></script>
+    <script src="{% static 'js/product.js' %}"></script>
+</body>
+</html>
